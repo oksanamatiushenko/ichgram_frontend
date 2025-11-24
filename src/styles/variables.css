@@ -1,0 +1,15 @@
+:root {
+    --button-main-blue: #0095F6;
+    --error-message-color: #FF0014;
+    --delete-color: #ED4956;
+    --main-text-color: #000000;
+    --grey-text-color: #737373;
+    --grey-background: #efefef;
+
+    --sidebar-font-size: 16px;
+    --footer-font-size: 12px;
+
+    --sidebar-width: 250px;
+
+
+}

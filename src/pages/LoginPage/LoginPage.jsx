@@ -1,5 +1,9 @@
-const LoginPage = () => {
-    return <div>Login</div>
-}
+import Button from "../../shared/components/Button/Button";
 
-export default LoginPage
+const LoginPage = () => {
+  return <div>
+    <Button>Log in</Button>
+  </div>;
+};
+
+export default LoginPage;
