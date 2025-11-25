@@ -1,10 +1,10 @@
-import Button from "../../shared/components/Button/Button";
+import Footer from "../../shared/components/Footer/Footer";
+
 
 const HomePage = () => {
   return <div>
     <h1>Home Page</h1>
-    <Button>Log in</Button>
-
+    <Footer />
   </div>
 };
 

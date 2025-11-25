@@ -1,0 +1,24 @@
+.notFoundContainer {
+    display: flex;
+    gap: 44px;
+}
+
+.notFoundText {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.notFoundParagraph {
+    width: 60%;
+    color: var(--grey-text-color);
+    font-size: var(--bigger-font-size);
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.previewImage {
+    width: 100%;
+    max-width: 460px;
+}

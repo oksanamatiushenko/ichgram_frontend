@@ -10,7 +10,7 @@ import EditProfilePage from "./EditProfilePage/EditProfilePage";
 import ForgotPasswordPage from "./ForgotPasswordPage/ForgotPasswordPage";
 import ResetPasswordPage from "./ResetPasswordPage/ResetPasswordPage";
 import ExplorePage from "./ExplorePage/ExplorePage";
-import LearnMorePage from "./LearnMorePage/LearnMorePage";
+import LearnMorePage from "./TermsPrivacyCookies/LearnMorePage/LearnMorePage";
 import CookiesPolicyPage from "./TermsPrivacyCookies/CookiesPolicyPage/CookiesPolicyPage";
 import PrivacyPolicyPage from "./TermsPrivacyCookies/PrivacyPolicyPage/PrivacyPolicyPage";
 import TermsPage from "./TermsPrivacyCookies/TermsPage/TermsPage";

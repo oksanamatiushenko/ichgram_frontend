@@ -1,8 +1,9 @@
-import Button from "../../shared/components/Button/Button";
+import LoginForm from "../../modules/Login/LoginForm/LoginForm";
 
 const LoginPage = () => {
   return <div>
-    <Button>Log in</Button>
+    <h1>LoginPage</h1>
+    <LoginForm/>
   </div>;
 };
 
