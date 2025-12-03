@@ -1,5 +1,9 @@
+import ForgotPassword from "../../modules/ForgotPassword/ForgotPassword";
+
 const ForgotPasswordPage = () => {
-  return <div>ForgotPasswordPage</div>
+  return (
+    <ForgotPassword />
+  )
 };
 
 export default ForgotPasswordPage;

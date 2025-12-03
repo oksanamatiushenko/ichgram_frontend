@@ -1,0 +1,52 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  margin-top: 20px;
+}
+
+.formfields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.separatorContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.separator {
+  flex: 1;
+  height: 1px;
+  background-color: #dbdbdb;
+}
+
+.orText {
+  color: #8e8e8e;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: #00376b;
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.link:hover {
+  color: #0095f6;
+}
+
+.errorMessage {
+  color: red;
+  font-size: 12px;
+  padding-left: 2px;
+}

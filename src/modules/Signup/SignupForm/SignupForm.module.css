@@ -1,0 +1,36 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  margin-top: 20px;
+}
+.formfields {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--dark-blue-text);
+  font-size: 12px;
+  cursor: pointer;
+  margin-top: 20px;
+  text-decoration: none;
+  transition: color 0.25s ease;
+}
+
+.link:hover {
+  color: var(--button-main-blue);
+}
+.termsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.policyText {
+  font-size: var(--footer-font-size);
+  color: var(--grey-text);
+  line-height: 1.4;
+}

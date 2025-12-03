@@ -1,5 +1,5 @@
 const MessagesPage = () => {
-  return <div>MessagesPage</div>;
+  return <h1>MessagesPage</h1>;
 };
 
 export default MessagesPage;

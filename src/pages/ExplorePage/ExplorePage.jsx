@@ -1,5 +1,7 @@
+import Explore from "../../shared/components/Explore/Explore";
+
 const ExplorePage = () => {
-  return <div>ExplorePage</div>;
+  return <Explore />;
 };
 
 export default ExplorePage;

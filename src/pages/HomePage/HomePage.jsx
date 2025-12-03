@@ -1,11 +1,12 @@
-import Footer from "../../shared/components/Footer/Footer";
 
+// import styles from "./HomePage.module.css";
 
 const HomePage = () => {
-  return <div>
-    <h1>Home Page</h1>
-    <Footer />
-  </div>
+  return (
+    <>
+    <h1>HOME PAGE</h1>
+    </>
+  );
 };
 
 export default HomePage;

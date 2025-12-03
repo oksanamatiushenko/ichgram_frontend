@@ -1,0 +1,90 @@
+.loader-wrapper {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  margin: 50px auto;
+}
+
+.letters-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  font-size: 18px;
+  opacity: 0;
+  background: linear-gradient(90deg, #0000008c, #8af10c, #02090046);
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-text-fill-color: transparent;
+
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80px;
+  height: 80px;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+/* .circle {
+  margin: 0 auto;
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+
+.text {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 0 0;
+  font-size: 18px;
+  opacity: 0;
+  animation: fadeInOut 2s linear infinite;
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 5px rgba(0,0,0,0.3));
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0; transform: translateY(-80px) scale(0.8); }
+  50% { opacity: 1; transform: translateY(-80px) scale(1); }
+} */

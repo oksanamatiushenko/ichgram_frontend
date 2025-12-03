@@ -1,38 +1,62 @@
+import React from "react";
 import { useForm } from "react-hook-form";
 
 import TextField from "../../../shared/components/TextField/TextField";
 import Button from "../../../shared/components/Button/Button";
 
-const LoginForm = () => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+import styles from "./LoginForm.module.css";
 
-  const onSubmit = values => {
-    console.log(values);
+const LoginForm = () => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors }
+  } = useForm();
+
+  const onSubmit = (values) => {
+    console.log("Submitted:", values);
     reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <TextField 
-          register={register} 
-          rules={{ required: "Email or username is required" }} 
-          name="identifier" 
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+      <div className={styles.formfields}>
+        
+        {/* Identifier */}
+        <TextField
+          name="identifier"
           placeholder="Email or Username"
-          error={errors.name}
+          type="text"
+          register={register}
+          rules={{ required: "Email or username is required" }}
+          error={errors.identifier}
         />
-         <TextField 
-          register={register} 
-          rules={{ required: "Password is required" }} 
-          name="password" 
-          placeholder="password" 
+
+        {/* Password */}
+        <TextField
+          name="password"
+          placeholder="Password"
+          type="password"
+          register={register}
+          rules={{ required: "Password is required" }}
           error={errors.password}
         />
       </div>
-      <Button type="submit">Login</Button>
+
+      <Button type="submit" color="primary">Log in</Button>
+
+      <div className={styles.separatorContainer}>
+        <div className={styles.separator}></div>
+        <span className={styles.orText}>OR</span>
+        <div className={styles.separator}></div>
+      </div>
+
+      <a className={styles.link} href="/forgot-password">
+        Forgot password?
+      </a>
     </form>
   );
 };
 
 export default LoginForm;
-

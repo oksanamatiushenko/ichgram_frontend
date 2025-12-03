@@ -1,5 +1,7 @@
+import Profile from "../../shared/components/Profile/Profile";
+
 const ProfilePage = () => {
-  return <div>SignupPage</div>;
+  return <Profile />;
 };
 
 export default ProfilePage;
