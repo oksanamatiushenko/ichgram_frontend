@@ -28,12 +28,10 @@ const Login = () => {
         </div>
 
         <div className={styles.signupCard}>
-          <p>
-            Don’t have an account?{" "}
-            <a href="/signup" className={styles.signupText}>
-              Sign up
-            </a>
-          </p>
+          <p>Don’t have an account?</p>
+          <a href="/signup" className={styles.signupText}>
+            Sign up
+          </a>
         </div>
       </div>
     </div>
@@ -41,4 +39,3 @@ const Login = () => {
 };
 
 export default Login;
-

@@ -15,7 +15,7 @@ const ForgotPassword = () => {
 
           <p className={styles.subtitleBlack}>Trouble logging in?</p>
 
-          <h5>
+          <h5 className={styles.text}>
             Enter your email, phone, or username and we’ll send you a link to get back
             into your account.
           </h5>

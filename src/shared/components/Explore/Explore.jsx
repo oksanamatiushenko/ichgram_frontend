@@ -15,6 +15,11 @@ const Explore = () => {
       { _id: "6", imageUrl: "https://picsum.photos/300?6" },
       { _id: "7", imageUrl: "https://picsum.photos/300?7" },
       { _id: "8", imageUrl: "https://picsum.photos/300?8" },
+      { _id: "9", imageUrl: "https://picsum.photos/300?9" },
+      { _id: "10", imageUrl: "https://picsum.photos/300?10" },
+      { _id: "11", imageUrl: "https://picsum.photos/300?11" },
+      { _id: "12", imageUrl: "https://picsum.photos/300?12" },
+      { _id: "13", imageUrl: "https://picsum.photos/300?13" },
     ];
   Promise.resolve().then(() => {
     setPosts(mockPosts);

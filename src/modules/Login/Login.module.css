@@ -117,11 +117,19 @@
 .signupCard {
   background-color: var(--card-bg);
   border: 1px solid var(--separator-grey-color);
-  text-align: center;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   animation: fadeInUp 1.1s ease;
+  display: flex; 
+  justify-content: center;
+  align-items: center; 
+  gap: 6px;
+  text-align: center;
+}
+
+.signupCard p {
+  margin: 0;
 }
 
 .signupText {

@@ -1,17 +1,77 @@
-import React from "react";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+
 import TextField from "../../../shared/components/TextField/TextField";
 import Button from "../../../shared/components/Button/Button";
 
 import styles from "./SignupForm.module.css";
 
-const SignupForm = () => {
+const SignupForm = ({ requestErrors, isSubmitSuccess, submitForm }) => {
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    formState: { errors },
+  } = useForm();
+
+  useEffect(() => {
+    if (requestErrors) {
+      for (const key in requestErrors) {
+        setError(key, {
+          message: requestErrors[key],
+        });
+      }
+    }
+  }, [requestErrors, setError]);
+
+  useEffect(() => {
+    if (isSubmitSuccess) {
+      reset();
+    }
+  }, [isSubmitSuccess, reset]);
+
+  const onSubmit = (values) => {
+    submitForm(values);
+    reset();
+  };
+
   return (
-    <form className={styles.form}>
+    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.formfields}>
-        <TextField placeholder="Email" />
-        <TextField placeholder="Fullname" />
-        <TextField placeholder="Username" />
-        <TextField placeholder="Password" type="password" />
+         <TextField
+          register={register}
+          rules={{ required: "Email is required" }}
+          name="email"
+          type="email"
+          placeholder="Email"
+          error={errors.email}
+        />
+
+        <TextField
+          register={register}
+          rules={{ required: "Fullname is required" }}
+          name="fullname"
+          placeholder="Full Name"
+          error={errors.fullname}
+        />
+
+        <TextField
+          register={register}
+          rules={{ required: "Username is required" }}
+          name="username"
+          placeholder="Username"
+          error={errors.username}
+        />
+
+        <TextField
+          register={register}
+          rules={{ required: "Password required" }}
+          name="password"
+          type="password"
+          placeholder="Password"
+          error={errors.password}
+        />
       </div>
 
       <div className={styles.termsBox}>
@@ -40,7 +100,9 @@ const SignupForm = () => {
         </p>
       </div>
 
-      <Button type="button" color="primary">Sign up</Button>
+      <Button type="submit" color="primary">
+        Sign up
+      </Button>
     </form>
   );
 };
