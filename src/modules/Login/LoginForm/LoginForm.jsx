@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 
 import TextField from "../../../shared/components/TextField/TextField";
@@ -6,7 +5,7 @@ import Button from "../../../shared/components/Button/Button";
 
 import styles from "./LoginForm.module.css";
 
-const LoginForm = () => {
+const LoginForm = ({ submitForm }) => {
   const {
     register,
     handleSubmit,
@@ -14,8 +13,8 @@ const LoginForm = () => {
     formState: { errors }
   } = useForm();
 
-  const onSubmit = (values) => {
-    console.log("Submitted:", values);
+  const onSubmit = async (values) => {
+    submitForm(values);
     reset();
   };
 
@@ -23,17 +22,15 @@ const LoginForm = () => {
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.formfields}>
         
-        {/* Identifier */}
         <TextField
-          name="identifier"
+          name="email"
           placeholder="Email or Username"
           type="text"
           register={register}
           rules={{ required: "Email or username is required" }}
-          error={errors.identifier}
+          error={errors.email}
         />
 
-        {/* Password */}
         <TextField
           name="password"
           placeholder="Password"

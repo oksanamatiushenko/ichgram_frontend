@@ -1,11 +1,20 @@
-import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import LoginForm from "./LoginForm/LoginForm";
+import { selectAuthRequest } from "../../redux/auth/authSelectors";
+
 import styles from "./Login.module.css";
+import { Navigate } from "react-router-dom";
+import { loginUser } from "../../redux/auth/authOperations";
 
 const Login = () => {
-  const submitForm = (data) => {
-    console.log("Form submitted:", data);
+  const { error, loading, isLoginSuccess } = useSelector(selectAuthRequest);
+  const dispatch = useDispatch();
+
+  const onLogin = async (payload) => {
+    dispatch(loginUser(payload));
   };
+  if (isLoginSuccess) return <Navigate to="/" />;
 
   return (
     <div className={styles.container}>
@@ -23,8 +32,9 @@ const Login = () => {
           <p className={styles.subtitle}>
             Log in to see your friends' photos and videos.
           </p>
-          {/* Email verification message убран */}
-          <LoginForm submitForm={submitForm} />
+
+          <LoginForm submitForm={onLogin} requestErrors={error} />
+          {loading && <p>Login request...</p>}
         </div>
 
         <div className={styles.signupCard}>

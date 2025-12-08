@@ -9,4 +9,5 @@
     width: inherit;
     height: 32px;
     font-size: 14px;
+    white-space: nowrap; 
 }

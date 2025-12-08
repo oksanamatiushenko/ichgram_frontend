@@ -1,0 +1,82 @@
+.post {
+  width: 470px;
+  margin-bottom: 40px;
+  border-bottom: 1px solid #e6e6e6;
+  padding-bottom: 30px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.headerInfo {
+  margin-left: 8px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.dot {
+  color: #999;
+  margin: 0 4px;
+}
+
+.date {
+  color: #999;
+}
+
+.follow {
+  margin-left: 4px;
+  background: none;
+  border: none;
+  color: #0095f6;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.imageWrapper img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.icon {
+  width: 24px;
+  cursor: pointer;
+}
+
+.likes {
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.caption {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.firstComment {
+  margin-top: 6px;
+  font-size: 14px;
+}
+
+.viewComments {
+  margin-top: 4px;
+  font-size: 13px;
+  color: #777;
+  cursor: pointer;
+}

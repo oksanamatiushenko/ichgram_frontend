@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  width: 100%;
+}
+
+.feed {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* две колонки */
+  gap: 39px; /* расстояние между постами */
+  margin-left: 78px;
+  margin-top: 40px;
+  max-width: 1000px; /* ширина feed */
+  width: 100%;
+}
+
+.end {
+  grid-column: 1 / -1; /* растянуть на обе колонки */
+  text-align: center;
+  margin-top: 40px;
+  color: #444;
+}
+
+.end img {
+  width: 36px;
+  margin-bottom: 10px;
+}
+

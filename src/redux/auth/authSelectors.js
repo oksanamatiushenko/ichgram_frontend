@@ -1,10 +1,10 @@
-import { createSelector } from "@reduxjs/toolkit";
+export const selectAuthRequest = (store) => {
+  return {
+    loading: store.auth.loading,
+    error: store.auth.error,
+    isSignupSuccess: store.auth.isSignupSuccess,
+  };
+};
 
-export const selectAuthRequest = createSelector(
-  (store) => store.auth,
-  (auth) => ({
-    loading: auth.loading,
-    error: auth.error,
-    isRegisterSuccess: auth.isRegisterSuccess,
-  })
-);
+export const selectUser = (store) => store.auth.user;
+export const selectToken = (store) => Boolean(store.auth.accessToken);

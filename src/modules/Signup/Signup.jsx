@@ -8,15 +8,16 @@ import { selectAuthRequest } from "../../redux/auth/authSelectors";
 import styles from "./Signup.module.css";
 
 const Signup = () => {
-  const { error, loading, isRegisterSuccess } = useSelector(selectAuthRequest);
+  const { loading, error, isRegisterSuccess } = useSelector(selectAuthRequest);
+  // const { error, loading, isRegisterSuccess } = useSelector(selectAuthRequest);
 
   const dispatch = useDispatch();
   
-  const noRegister = (payload) => {
+  const onRegister = async (payload) => {
     dispatch(registerUser(payload));
   };
 
-  if (isRegisterSuccess) return <Navigate to="/login" />;
+  if (isRegisterSuccess) return <Navigate to="/login"/>;
 
   return (
     <div className={styles.container}>
@@ -24,12 +25,12 @@ const Signup = () => {
         <div className={styles.card}>
           <img src="/logo.svg" alt="ICHGRAM logo" className={styles.logo} />
           <p className={styles.subtitle}>
-            Sign up to see photos and videos from your friends.
+            Sign up to see photos and videos<br></br>from your friends.
           </p>
           <SignupForm
             requestErrors={error}
             isSubmitSuccess={isRegisterSuccess}
-            submitForm={noRegister}
+            submitForm={onRegister}
           />
           {loading && <p>Register request...</p>}
         </div>

@@ -31,15 +31,14 @@ const SignupForm = ({ requestErrors, isSubmitSuccess, submitForm }) => {
     }
   }, [isSubmitSuccess, reset]);
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     submitForm(values);
-    reset();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.formfields}>
-         <TextField
+        <TextField
           register={register}
           rules={{ required: "Email is required" }}
           name="email"
@@ -78,7 +77,7 @@ const SignupForm = ({ requestErrors, isSubmitSuccess, submitForm }) => {
         <p className={styles.policyText}>
           People who use our service may have uploaded your contact information
           to Instagram.{" "}
-          <a href="/privacy-policy" target="_blank" className={styles.link}>
+          <a href="/learn-more" target="_blank" className={styles.link}>
             Learn More
           </a>
         </p>

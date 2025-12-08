@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import styles from "./SidebarMenu.module.css";
+import { logout } from "../../api/auth-api";
+import { logoutUser } from "../../../redux/auth/authOperations";
 
 const SidebarMenu = ({
   onToggleNotifications,
@@ -11,6 +14,10 @@ const SidebarMenu = ({
   const navigate = useNavigate();
   const location = useLocation();
   const [hoveredItem, setHoveredItem] = useState(null);
+  const dispatch = useDispatch();
+  const onLogout = (payload) => {
+    dispatch(logoutUser(payload));
+  };
 
   const menuItems = [
     {
@@ -49,9 +56,14 @@ const SidebarMenu = ({
       iconFilled: "/sidebar/icon-no-profile.svg",
       isAvatar: true,
     },
+    {
+      label: "Logout",
+      icon: "/sidebar/icon-no-profile.svg",
+      iconFilled: "/sidebar/icon-no-profile.svg",
+    },
   ];
 
-  const handleClick = (item, e) => {
+  const handleClick = async (item, e) => {
     e.preventDefault();
 
     switch (item.label) {
@@ -82,6 +94,18 @@ const SidebarMenu = ({
 
       case "Create":
         navigate("/create-new-post", { state: { background: location } });
+        break;
+
+      case "Logout":
+        try {
+        await onLogout();
+        await logout();
+        localStorage.removeItem('token')
+        localStorage.removeItem('refreshToken');
+        navigate("/login");
+        } catch (error) {
+          console.error('Logout error', error);
+        }
         break;
 
       default:
@@ -123,11 +147,12 @@ const SidebarMenu = ({
         })}
       </nav>
 
-      <div className={styles.logoutWrapper}>
+      {/* <div className={styles.logoutWrapper}>
         <button className={styles.logoutButton}>Log out</button>
-      </div>
+      </div> */}
     </aside>
   );
 };
 
 export default SidebarMenu;
+
