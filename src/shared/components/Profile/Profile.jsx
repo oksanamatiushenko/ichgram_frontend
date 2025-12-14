@@ -1,6 +1,6 @@
-import React from "react";
 import GradientAvatar from "../../../layouts/GradientAvatar/GradientAvatar";
 import Button from "../../../shared/components/Button/Button";
+import ProfilePosts from "./ProfilePosts/ProfilePosts";
 import styles from "./Profile.module.css";
 
 const Profile = () => {
@@ -45,12 +45,7 @@ const Profile = () => {
       </div>
 
       <div className={styles.posts}>
-        <h3>Posts</h3>
-        <div className={styles.postList}>
-          <div className={styles.post}>Static post 1</div>
-          <div className={styles.post}>Static post 2</div>
-          <div className={styles.post}>Static post 3</div>
-        </div>
+        <ProfilePosts />
       </div>
     </div>
   );

@@ -9,7 +9,6 @@ import styles from "./Signup.module.css";
 
 const Signup = () => {
   const { loading, error, isRegisterSuccess } = useSelector(selectAuthRequest);
-  // const { error, loading, isRegisterSuccess } = useSelector(selectAuthRequest);
 
   const dispatch = useDispatch();
   

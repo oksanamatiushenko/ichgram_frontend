@@ -1,9 +1,8 @@
-import React from "react";
 import DropdownPanel from "../../../layouts/DropdownPanel/DropdownPanel";
 import styles from "./NotificationsPanel.module.css";
 
 const NotificationsPanel = ({ isOpen, onClose }) => {
-  if (!isOpen) return null;
+  // if (!isOpen) return null;
 
   return (
     <DropdownPanel isOpen={isOpen} onClose={onClose} title="Notifications">

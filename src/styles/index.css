@@ -8,17 +8,12 @@ body {
 
 .app-wrapper {
     display: flex;
-    position: relative;
-    height: 100%;
-    /* ключевое */
-    /* height: 100vh; */
-    /* чтобы растянуть на весь экран */
+    min-height: 100vh;
 }
 
+/* Основная область контента */
 .main-content {
-    flex: 1;
-    padding: 36px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    flex: 1;
 }

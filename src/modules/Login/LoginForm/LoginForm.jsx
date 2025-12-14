@@ -1,33 +1,44 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import TextField from "../../../shared/components/TextField/TextField";
 import Button from "../../../shared/components/Button/Button";
 
 import styles from "./LoginForm.module.css";
+import { loginSchema } from "../../../shared/schemas/auth.schemas";
 
-const LoginForm = ({ submitForm }) => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors }
-  } = useForm();
+const LoginForm = ({ submitForm, requestErrors, isSubmitSuccess }) => {
+  const { register, handleSubmit, setError, reset, formState: { errors } } = useForm({
+    resolver: zodResolver(loginSchema)
+  });
 
-  const onSubmit = async (values) => {
+  useEffect(() => {
+    if (requestErrors) {
+      for (const key in requestErrors) {
+        setError(key, { message: requestErrors[key] });
+      }
+    }
+  }, [requestErrors, setError]);
+
+  useEffect(() => {
+    if (isSubmitSuccess) {
+      reset();
+    }
+  }, [isSubmitSuccess, reset]);
+
+  const onSubmit = (values) => {
     submitForm(values);
-    reset();
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <div className={styles.formfields}>
-        
         <TextField
           name="email"
           placeholder="Email or Username"
           type="text"
           register={register}
-          rules={{ required: "Email or username is required" }}
           error={errors.email}
         />
 
@@ -36,7 +47,6 @@ const LoginForm = ({ submitForm }) => {
           placeholder="Password"
           type="password"
           register={register}
-          rules={{ required: "Password is required" }}
           error={errors.password}
         />
       </div>
@@ -57,3 +67,4 @@ const LoginForm = ({ submitForm }) => {
 };
 
 export default LoginForm;
+

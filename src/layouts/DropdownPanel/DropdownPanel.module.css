@@ -2,12 +2,20 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 250px;
-  /* если у тебя есть сайдбар шириной 250px */
+  left: 250px; /* ширина сайдбара */
   right: 0;
   background: rgba(0, 0, 0, 0.3);
   z-index: 50;
   display: flex;
+  justify-content: flex-start; /* панель слева от overlay */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.overlay.open {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .panel {
@@ -19,11 +27,10 @@
   overflow-y: auto;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  position: relative;
+  transform: translateX(-100%); /* изначально скрыта */
+  transition: transform 0.3s ease;
 }
 
-.title {
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 16px;
+.overlay.open .panel {
+  transform: translateX(0); /* выезжает в позицию */
 }

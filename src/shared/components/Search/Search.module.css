@@ -1,0 +1,91 @@
+.input {
+    width: 100%;
+    padding: 10px 16px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    border: none;
+    background-color: #EFEFEF;
+    border-radius: 12px;
+    outline: none;
+}
+
+/* Обёртка под иконку */
+.inputWrapper {
+    position: relative;
+    width: 100%;
+}
+
+/* Кнопка очистки */
+.clearBtn {
+    position: absolute;
+    right: 10px;
+    top: 35%;
+    transform: translateY(-50%);
+
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+}
+
+.clearBtn:hover {
+    opacity: 1;
+}
+
+/* SVG-иконка */
+.clearIcon {
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+}
+
+
+.subheading {
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 12px;
+}
+
+.list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.item:hover {
+    background-color: #f0f0f0;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.username {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}

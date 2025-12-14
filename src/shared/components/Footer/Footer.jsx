@@ -1,26 +1,35 @@
-import React from "react";
 import styles from "./Footer.module.css";
 
-const Footer = () => {
+const Footer = ({ 
+  onToggleNotifications, 
+  onToggleSearch, 
+  onOpenCreate, 
+  navigate 
+}) => {
+  const handleClick = (e, action) => {
+    e.preventDefault(); // чтобы ссылка не перезагружала страницу
+    action?.();
+  };
+
   return (
     <footer className={styles.footer}>
       <nav className={styles.nav}>
-        <a href="/dashboard" className={styles.link}>
+        <a href="/" className={styles.link} onClick={(e) => handleClick(e, () => navigate("/"))}>
           Home
         </a>
-        <a href="/search" className={styles.link}>
+        <a href="#" className={styles.link} onClick={(e) => handleClick(e, onToggleSearch)}>
           Search
         </a>
-        <a href="/explore" className={styles.link}>
+        <a href="/explore" className={styles.link} onClick={(e) => handleClick(e, () => navigate("/explore"))}>
           Explore
         </a>
-        <a href="/messages" className={styles.link}>
+        <a href="/messages" className={styles.link} onClick={(e) => handleClick(e, () => navigate("/messages"))}>
           Messages
         </a>
-        <a href="/notifications" className={styles.link}>
+        <a href="#" className={styles.link} onClick={(e) => handleClick(e, onToggleNotifications)}>
           Notifications
         </a>
-        <a href="/create-new-post" className={styles.link}>
+        <a href="#" className={styles.link} onClick={(e) => handleClick(e, onOpenCreate)}>
           Create
         </a>
       </nav>
@@ -30,3 +39,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
+

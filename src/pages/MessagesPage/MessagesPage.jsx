@@ -1,5 +1,9 @@
+import Messager from "../../shared/components/Messager/Messager";
+
 const MessagesPage = () => {
-  return <h1>MessagesPage</h1>;
+  return (
+    <Messager />
+  )
 };
 
 export default MessagesPage;

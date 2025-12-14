@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import styles from "./SidebarMenu.module.css";
-import { logout } from "../../api/auth-api";
 import { logoutUser } from "../../../redux/auth/authOperations";
 
 const SidebarMenu = ({
@@ -10,13 +10,19 @@ const SidebarMenu = ({
   onToggleSearch,
   onClosePanels,
   activePanel,
+  onOpenCreate,
 }) => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [hoveredItem, setHoveredItem] = useState(null);
   const dispatch = useDispatch();
-  const onLogout = (payload) => {
-    dispatch(logoutUser(payload));
+  const [hoveredItem, setHoveredItem] = useState(null);
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      navigate("/login");
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
   };
 
   const menuItems = [
@@ -58,8 +64,8 @@ const SidebarMenu = ({
     },
     {
       label: "Logout",
-      icon: "/sidebar/icon-no-profile.svg",
-      iconFilled: "/sidebar/icon-no-profile.svg",
+      icon: "/sidebar/icon-logout.svg",
+      iconFilled: "/sidebar/icon-logout-filled.svg",
     },
   ];
 
@@ -71,10 +77,12 @@ const SidebarMenu = ({
         navigate("/");
         onClosePanels?.();
         break;
+
       case "Profile":
         navigate("/profile");
-        onClosePanels();
+        onClosePanels?.();
         break;
+
       case "Explore":
         navigate("/explore");
         onClosePanels?.();
@@ -93,24 +101,14 @@ const SidebarMenu = ({
         break;
 
       case "Create":
-        navigate("/create-new-post", { state: { background: location } });
+        onOpenCreate?.();
         break;
 
       case "Logout":
-        try {
-        await onLogout();
-        await logout();
-        localStorage.removeItem('token')
-        localStorage.removeItem('refreshToken');
-        navigate("/login");
-        } catch (error) {
-          console.error('Logout error', error);
-        }
+        await handleLogout();
         break;
-
       default:
         onClosePanels?.();
-        break;
     }
   };
 
@@ -146,13 +144,8 @@ const SidebarMenu = ({
           );
         })}
       </nav>
-
-      {/* <div className={styles.logoutWrapper}>
-        <button className={styles.logoutButton}>Log out</button>
-      </div> */}
     </aside>
   );
 };
 
 export default SidebarMenu;
-

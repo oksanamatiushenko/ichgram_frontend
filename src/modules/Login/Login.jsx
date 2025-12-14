@@ -8,12 +8,12 @@ import { Navigate } from "react-router-dom";
 import { loginUser } from "../../redux/auth/authOperations";
 
 const Login = () => {
-  const { error, loading, isLoginSuccess } = useSelector(selectAuthRequest);
+  const { loading, error, isLoginSuccess } = useSelector(selectAuthRequest);
   const dispatch = useDispatch();
-
   const onLogin = async (payload) => {
     dispatch(loginUser(payload));
   };
+  
   if (isLoginSuccess) return <Navigate to="/" />;
 
   return (
@@ -30,7 +30,7 @@ const Login = () => {
         <div className={styles.card}>
           <img src="/logo.svg" alt="ICHGRAM logo" className={styles.logo} />
           <p className={styles.subtitle}>
-            Log in to see your friends' photos and videos.
+            Log in to continue.
           </p>
 
           <LoginForm submitForm={onLogin} requestErrors={error} />

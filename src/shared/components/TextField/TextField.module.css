@@ -1,33 +1,50 @@
-.label {
-    display: block;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 6px;
+.field {
+  width: 100%;
+}
 
+.inputWrapper {
+  position: relative;
 }
 
 .input {
-    width: 100%;
-    padding: 9px 8px;
-    border: 1px solid #dbdbdb;
-    border-radius: 3px;
-    background-color: #fafafa;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.2s ease-in-out;
+  width: 100%;
+  padding: 13px 38px 13px 11px;
+  border: 1px solid #dbdbdb;
+  border-radius: 6px;
+  background-color: #fafafa;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input:focus {
-    border-color: #a8a8a8;
-    background-color: #ffffff;
+  border-color: #a3d2ff;
+  box-shadow: 0 0 0 2px rgba(163, 210, 255, 0.3);
+  background-color: #ffffff;
 }
 
+/* Ошибка — мягкий красный */
 .inputError {
-    border-color: red !important;
+  border-color: #f1868d;
+  box-shadow: 0 0 0 2px rgba(241, 134, 141, 0.2);
+}
+
+.eye {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .errorMessage {
-    color: red;
-    font-size: 12px;
-    margin-top: 4px;
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
 }

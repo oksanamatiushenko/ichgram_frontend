@@ -75,7 +75,7 @@ export default function HomePage() {
         ))}
 
         <div className={styles.end}>
-          <img src="/check-circle.png" />
+          <img src="/refresh-light.svg" />
           <p>You’ve seen all the updates</p>
           <span>You have viewed all new publications</span>
         </div>

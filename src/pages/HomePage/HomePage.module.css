@@ -5,23 +5,37 @@
 
 .feed {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* две колонки */
-  gap: 39px; /* расстояние между постами */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 39px;
   margin-left: 78px;
   margin-top: 40px;
-  max-width: 1000px; /* ширина feed */
+  max-width: 1000px;
   width: 100%;
 }
 
 .end {
-  grid-column: 1 / -1; /* растянуть на обе колонки */
+  grid-column: 1 / -1;
   text-align: center;
   margin-top: 40px;
   color: #444;
+  padding-bottom: 200px;
 }
 
 .end img {
-  width: 36px;
+  width: 82.69px;
+  height: 82.69px;
   margin-bottom: 10px;
 }
 
+.end p {
+  font-size: 17px;
+  font-weight: 300;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+.end span {
+  font-size: 12px;
+  font-weight: 300;
+  color: #737373;
+}

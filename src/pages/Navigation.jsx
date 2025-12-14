@@ -18,6 +18,7 @@ import CookiesPolicyPage from "./TermsPrivacyCookies/CookiesPolicyPage/CookiesPo
 import PrivacyPolicyPage from "./TermsPrivacyCookies/PrivacyPolicyPage/PrivacyPolicyPage";
 import TermsPage from "./TermsPrivacyCookies/TermsPage/TermsPage";
 import MessagesPage from "./MessagesPage/MessagesPage";
+import CreatePostModal from "../shared/components/CreatePostModal/CreatePostModal";
 
 const Navigation = () => {
   const location = useLocation();
@@ -46,6 +47,7 @@ const Navigation = () => {
           <Route path="/edit-profile" element={<EditProfilePage />} />
           <Route path="/explore" element={<ExplorePage />} />
           <Route path="/messages" element={<MessagesPage />} />
+          <Route path="/create-new-post" element={<CreatePostModal />} />
 
           <Route path="*" element={<NotFoundPage />} />
         </Route>
