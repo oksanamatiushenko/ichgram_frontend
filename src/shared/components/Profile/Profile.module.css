@@ -72,10 +72,6 @@
   margin-bottom: 4px;
 }
 
-/* .userBio{
-
-} */
-
 .bio a {
   color: #00376b;
   text-decoration: none;
@@ -120,4 +116,24 @@
   background-color: var(--button-main-blue);
   color: white;
   width: 100px;
+}
+
+.followBtn {
+  padding: 8px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+   min-width: 120px;
+}
+
+.followBtn.follow {
+  background-color: #0095f6;
+  color: #fff;
+}
+
+.followBtn.unfollow {
+  background-color: #efefef;
+  color: #333;
 }

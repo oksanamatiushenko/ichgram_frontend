@@ -1,14 +1,16 @@
 .sidebar {
-  width: var(--sidebar-width); /* например, 250px */
-  flex-shrink: 0; /* не позволяет сайдбару сжиматься */
+  width: var(--sidebar-width);
+  flex-shrink: 0;
   padding: 20px;
   background-color: #fff;
-  border-right: 1px solid #dbdbdb;
   display: flex;
   flex-direction: column;
   height: 100vh;
   position: sticky;
   top: 0;
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1);
+  border-right: none;
+  z-index: 1000;
 }
 
 .logoWrapper {

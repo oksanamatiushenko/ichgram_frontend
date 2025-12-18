@@ -12,7 +12,7 @@ export default function SpinnerTextLoader() {
 
     const animateCircle = () => {
       if (circleRef.current) {
-        rotation = (rotation + 1) % 360; // плавное вращение
+        rotation = (rotation + 0.3) % 360;
         circleRef.current.style.transform = `rotate(${rotation}deg)`;
       }
       requestAnimationFrame(animateCircle);
@@ -22,29 +22,27 @@ export default function SpinnerTextLoader() {
   }, []);
 
   return (
-    <div
-      ref={circleRef}
-      className="circle"
-      style={{ width: radius * 2, height: radius * 2 }}
-    >
-      <p aria-label={text}></p>
-      <p aria-hidden="true" className="text">
-        {characters.map((ch, i) => (
-          <span
-            key={i}
-            className={`letter letter-${i}`}
-            style={{
-              transform: `rotate(${i * (360 / characters.length)}deg) translateY(-${radius}px)`,
-              animationDelay: `${i * 0.1}s`, // задержка для каждой буквы
-            }}
-          >
-            {ch}
-          </span>
-        ))}
-      </p>
-      <img src="/itcareerhub.png" className="logo" alt="Logo" />
+    <div className="spinner-overlay">
+      <div ref={circleRef} className="loader-wrapper">
+        <div className="letters-circle">
+          {characters.map((ch, i) => (
+            <span
+              key={i}
+              className="letter"
+              style={{
+                transform: `rotate(${
+                  i * (360 / characters.length)
+                }deg) translateY(-${radius}px)`,
+                animationDelay: `${i * 0.05}s`,
+              }}
+            >
+              {ch}
+            </span>
+          ))}
+        </div>
+
+        <img src="/itcareerhub.png" className="logo" alt="Logo" />
+      </div>
     </div>
   );
 }
-
-

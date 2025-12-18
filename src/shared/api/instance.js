@@ -2,9 +2,7 @@ import axios from "axios";
 import { store } from "../../redux/store";
 import { logout, setCredentials } from "../../redux/auth/authSlice";
 
-
 const { VITE_API_URL: baseURL } = import.meta.env;
-// console.log(baseURL);
 const instance = axios.create({
   baseURL: `${baseURL}/api`,
 });
@@ -40,6 +38,12 @@ instance.interceptors.response.use(
         const authHeader = `Bearer ${data.accessToken}`;
         instance.defaults.headers["Authorization"] = authHeader;
         originalRequest.headers.Authorization = authHeader;
+
+        localStorage.setItem("token", data.accessToken);
+    if (data.refreshToken) {
+      localStorage.setItem("refreshToken", data.refreshToken);
+    }
+
         store.dispatch(setCredentials(data));
 
         return instance(originalRequest);
@@ -53,43 +57,3 @@ instance.interceptors.response.use(
 );
 
 export default instance;
-
-// import axios from "axios";
-// import { store } from "../../redux/store";
-
-
-// const { VITE_API_URL: baseURL } = import.meta.env;
-
-// const instance = axios.create({
-//   baseURL: `${baseURL}`,
-// });
-
-// instance.interceptors.request.use(
-//   (config) => {
-//     const { auth } = store.getState();
-
-//     if (auth.accessToken) {
-//       config.headers.Authorization = `Bearer ${auth.accessToken}`;
-//     }
-
-//     return config;
-//   },
-//   (error) => Promise.reject(error)
-// );
-
-// instance.interceptors.response.use(
-//   (res) => res,
-//   async (error) => {
-//     const originalRequest = error.config;
-//     if (error.status === 401 && error.message === "accessToken expired") {
-//       const { auth } = store.getState();
-//       const { data } = await instance.post("/auth/refresh", {
-//         refreshToken: auth.refreshToken,
-//       });
-//       instance.defaults.headers["Authorization"] = `Bearer ${data.accessToken}`;
-//       return instance(originalRequest);
-//     }
-//   }
-// );
-
-// export default instance;

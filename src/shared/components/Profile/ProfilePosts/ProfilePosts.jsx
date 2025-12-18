@@ -1,20 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import styles from "./ProfilePosts.module.css";
 
-// Фейковые посты для демонстрации
-const mockPosts = [
-  { _id: "1", imageUrl: "https://picsum.photos/id/1011/300/300" },
-  { _id: "2", imageUrl: "https://picsum.photos/id/1015/300/300" },
-  { _id: "3", imageUrl: "https://picsum.photos/id/1016/300/300" },
-  { _id: "4", imageUrl: "https://picsum.photos/id/1020/300/300" },
-  { _id: "5", imageUrl: "https://picsum.photos/id/1024/300/300" },
-  { _id: "6", imageUrl: "https://picsum.photos/id/1025/300/300" },
-];
+const API_URL = import.meta.env.VITE_API_URL;
 
-export default function ProfilePosts({ posts = mockPosts }) {
+export default function ProfilePosts({ posts = [] }) {
   const location = useLocation();
 
-  if (!posts || posts.length === 0) {
+  //console.log("PROFILE POSTS:", posts);
+
+  if (!posts.length) {
     return <p>У пользователя пока нет постов</p>;
   }
 
@@ -22,14 +16,17 @@ export default function ProfilePosts({ posts = mockPosts }) {
     <div className={styles.postGrid}>
       {posts.map((post) => (
         <div key={post._id} className={styles.postItem}>
-          <Link
-            to={`/posts/${post._id}`}
-            state={{ background: location }}
-          >
-            <img src={post.imageUrl} alt="Post" />
+          <Link to={`/posts/${post._id}`} state={{ background: location }}>
+            <img
+              src={`${API_URL}${post.imageUrl}`}
+              alt="Post"
+              style={{ width: "100%", height: "100%" }}
+            />
           </Link>
         </div>
       ))}
     </div>
   );
 }
+
+

@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
-import styles from "./SidebarMenu.module.css";
+import { selectUser } from "../../../redux/auth/authSelectors";
 import { logoutUser } from "../../../redux/auth/authOperations";
+import styles from "./SidebarMenu.module.css";
+
+const API_URL = import.meta.env.VITE_API_URL || "";
 
 const SidebarMenu = ({
   onToggleNotifications,
@@ -15,6 +17,8 @@ const SidebarMenu = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [hoveredItem, setHoveredItem] = useState(null);
+
+  const currentUser = useSelector(selectUser);
 
   const handleLogout = async () => {
     try {
@@ -58,9 +62,10 @@ const SidebarMenu = ({
     },
     {
       label: "Profile",
-      icon: "/sidebar/icon-no-profile.svg",
-      iconFilled: "/sidebar/icon-no-profile.svg",
+      icon: "/no-profile-pic-icon-11.jpg",
+      iconFilled: "/no-profile-pic-icon-11.jpg",
       isAvatar: true,
+      path: currentUser ? `/users/${currentUser.username}` : undefined,
     },
     {
       label: "Logout",
@@ -79,7 +84,8 @@ const SidebarMenu = ({
         break;
 
       case "Profile":
-        navigate("/profile");
+        if (!currentUser?.username) return;
+        navigate(`/users/${currentUser.username}`);
         onClosePanels?.();
         break;
 
@@ -125,6 +131,14 @@ const SidebarMenu = ({
             activePanel &&
             activePanel.toLowerCase() === item.label.toLowerCase();
 
+          const imgSrc = item.isAvatar
+            ? currentUser?.avatarUrl
+              ? `${API_URL}${currentUser.avatarUrl}`
+              : item.icon
+            : isActive || isHovered
+            ? item.iconFilled
+            : item.icon;
+
           return (
             <a
               href="#"
@@ -135,7 +149,7 @@ const SidebarMenu = ({
               onClick={(e) => handleClick(item, e)}
             >
               <img
-                src={isHovered || isActive ? item.iconFilled : item.icon}
+                src={imgSrc}
                 alt={item.label}
                 className={item.isAvatar ? styles.avatarIcon : styles.icon}
               />

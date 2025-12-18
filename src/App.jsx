@@ -1,7 +1,9 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectUser } from "./redux/auth/authSelectors";
+import { getCurrentUser } from "./redux/auth/authOperations";
+import { setCredentials } from "./redux/auth/authSlice";
 
 import Navigation from "./pages/Navigation";
 import Footer from "./shared/components/Footer/Footer";
@@ -16,11 +18,29 @@ function App() {
   const [openPanel, setOpenPanel] = useState(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const user = useSelector(selectUser);
-    const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const togglePanel = (panel) =>
     setOpenPanel((prev) => (prev === panel ? null : panel));
 
+  useEffect(() => {
+    const accessToken = localStorage.getItem("token");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    if (accessToken) {
+      dispatch(
+        setCredentials({
+          user: null, // временно
+          accessToken,
+          refreshToken,
+        })
+      );
+
+      dispatch(getCurrentUser());
+    }
+  }, [dispatch]);
+  
   return (
     <>
       <div className="app-wrapper">
@@ -40,10 +60,10 @@ function App() {
 
         {user && (
           <Footer
-          navigate={navigate}
-          onToggleNotifications={() => togglePanel("notifications")}
-          onToggleSearch={() => togglePanel("search")}
-          onOpenCreate={() => setIsCreateOpen(true)}
+            navigate={navigate}
+            onToggleNotifications={() => togglePanel("notifications")}
+            onToggleSearch={() => togglePanel("search")}
+            onOpenCreate={() => setIsCreateOpen(true)}
           />
         )}
       </div>

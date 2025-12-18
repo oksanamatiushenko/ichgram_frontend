@@ -13,16 +13,17 @@ const TextField = ({
 }) => {
   const id = useId();
   const [showPassword, setShowPassword] = useState(false);
-
   const isPassword = type === "password";
-  // ВАЖНО: если showPassword=true → тип = text (пароль видно)
   const inputType = isPassword ? (showPassword ? "text" : "password") : type;
-
   const registerProps = register && name ? register(name, rules) : {};
 
   return (
     <div className={styles.field}>
-      {label && <label htmlFor={id} className={styles.label}>{label}</label>}
+      {label && (
+        <label htmlFor={id} className={styles.label}>
+          {label}
+        </label>
+      )}
 
       <div className={styles.inputWrapper}>
         <input
@@ -37,7 +38,7 @@ const TextField = ({
           <button
             type="button"
             className={styles.eye}
-            onClick={() => setShowPassword(v => !v)}
+            onClick={() => setShowPassword((v) => !v)}
             aria-label={showPassword ? "Hide password" : "Show password"}
           >
             {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
@@ -51,5 +52,3 @@ const TextField = ({
 };
 
 export default TextField;
-
-

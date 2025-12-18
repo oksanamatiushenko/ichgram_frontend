@@ -1,0 +1,102 @@
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* 🔹 Кнопка со смайлом */
+.iconButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, opacity 0.2s;
+}
+
+.iconButton:hover {
+  transform: scale(1.1);
+  opacity: 0.8;
+}
+
+.iconButton img {
+  width: 22px;
+  height: 22px;
+}
+
+/* 🔹 Контейнер emoji picker */
+.picker {
+  position: absolute;
+  bottom: 40px;
+  right: 0;
+  z-index: 1000;
+}
+
+/* 🔹 Стилизация emoji-picker-react */
+.customEmojiPicker {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(10px);
+  border-radius: 14px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px !important;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  max-height: 180px;
+  overflow-y: auto;
+  transition: all 0.2s ease;
+  animation: fadeIn 0.25s ease;
+}
+
+/* 🔹 Убираем лишнее */
+.customEmojiPicker > div:first-child,
+.customEmojiPicker > div:last-child,
+.customEmojiPicker .epr-emoji-category-label {
+  display: none !important;
+}
+
+/* 🔹 Размер emoji */
+.customEmojiPicker [data-testid="emoji"] {
+  font-size: 20px !important;
+}
+
+/* 🔹 Кнопки emoji */
+.customEmojiPicker button {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 8px !important;
+  transition: background 0.2s ease;
+}
+
+.customEmojiPicker button:hover {
+  background: rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 🔹 Навигация категорий */
+.customEmojiPicker .epr-category-nav {
+  display: flex;
+  justify-content: center;
+  padding: 4px;
+}
+
+.customEmojiPicker .epr-category-nav button {
+  width: 22px !important;
+  height: 22px !important;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.customEmojiPicker .epr-category-nav button:hover {
+  opacity: 1;
+}
+
+/* 🔹 Анимация появления */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
