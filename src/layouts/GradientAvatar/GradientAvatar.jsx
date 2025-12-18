@@ -1,7 +1,7 @@
-import React from "react";
 import styles from "./GradientAvatar.module.css";
 
 const GradientAvatar = ({ src, size = 60, alt = "avatar" }) => {
+  
   return (
     <div
       className={styles.avatarWrapper}

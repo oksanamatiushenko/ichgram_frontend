@@ -16,6 +16,7 @@ import styles from "./Profile.module.css";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const Profile = () => {
+  
   const navigate = useNavigate();
   const { username } = useParams();
   const currentUser = useSelector(selectUser);
@@ -31,6 +32,7 @@ const Profile = () => {
   );
 
   const isOwnProfile = currentUser?.username === username;
+  
 
   useEffect(() => {
     const fetchUser = async () => {

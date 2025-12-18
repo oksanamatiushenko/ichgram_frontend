@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../../redux/auth/authSelectors";
 import styles from "./CreatePostModal.module.css";
 import { createPost } from "../../api/post-api";
+import EmojiButton from "../../../layouts/EmojiButton/EmojiButton";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -18,10 +19,13 @@ const CreatePostModal = ({ onClose, onPostCreated }) => {
   );
 
   const fileInputRef = useRef(null);
+  const textareaRef = useRef(null);
 
   // Обновляем аватар, если пользователь поменял фото
   useEffect(() => {
-    setAvatarPreview(user?.avatarUrl ? `${API_URL}${user.avatarUrl}` : "/icon-no-profile.svg");
+    setAvatarPreview(
+      user?.avatarUrl ? `${API_URL}${user.avatarUrl}` : "/icon-no-profile.svg"
+    );
   }, [user?.avatarUrl]);
 
   // Обработка выбора изображения для поста
@@ -39,13 +43,33 @@ const CreatePostModal = ({ onClose, onPostCreated }) => {
     setIsSubmitting(true);
     try {
       const newPost = await createPost(imageFile, caption);
-      onPostCreated?.(newPost); 
+      onPostCreated?.(newPost);
       onClose();
     } catch (err) {
       console.error("Error creating post:", err);
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  // Добавление Emoji
+  const handleEmojiInsert = (emoji) => {
+    const textarea = textareaRef.current;
+    if (!textarea) return;
+
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
+
+    const before = caption.slice(0, start);
+    const after = caption.slice(end);
+
+    const updated = before + emoji + after;
+    setCaption(updated);
+
+    requestAnimationFrame(() => {
+      textarea.focus();
+      textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
+    });
   };
 
   // Закрытие по ESC
@@ -58,7 +82,9 @@ const CreatePostModal = ({ onClose, onPostCreated }) => {
   // Блокировка скролла body при открытой модалке
   useEffect(() => {
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, []);
 
   return (
@@ -118,12 +144,14 @@ const CreatePostModal = ({ onClose, onPostCreated }) => {
               <p className={styles.username}>{user?.username || "username"}</p>
             </div>
 
+            {/* Кнопка Emoji */}
+            <EmojiButton onSelect={handleEmojiInsert} />
+
             <div className={styles.form}>
-              <div className={styles.captionCounter}>
-                {caption.length}/2200
-              </div>
+              <div className={styles.captionCounter}>{caption.length}/2200</div>
               <textarea
                 className={styles.textarea}
+                ref={textareaRef}
                 placeholder="Add caption"
                 value={caption}
                 maxLength={2200}
@@ -138,4 +166,3 @@ const CreatePostModal = ({ onClose, onPostCreated }) => {
 };
 
 export default CreatePostModal;
-

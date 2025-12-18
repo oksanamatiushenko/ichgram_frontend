@@ -67,7 +67,7 @@ export default function Post({ post, onPostUpdate }) {
       <div className={styles.header}>
         <GradientAvatar
           src={getImageSrc(localAuthor.avatarUrl)}
-          size={30}
+          size={44}
         />
         <div className={styles.authorDetails}>
           <strong>{localAuthor.username || "Unknown"}</strong>
@@ -77,7 +77,6 @@ export default function Post({ post, onPostUpdate }) {
 
           {currentUser && currentUser._id !== localAuthor._id && (
             <>
-              <span>•</span>
               <button
                 className={styles.followBtn}
                 onClick={handleFollowToggle}

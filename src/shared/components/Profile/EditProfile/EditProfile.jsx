@@ -6,7 +6,7 @@ import Button from "../../Button/Button";
 import { updateUserProfile } from "../../../api/profile-api";
 import styles from "./EditProfile.module.css";
 
-const BACKEND_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
 
 const EditProfile = () => {
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const EditProfile = () => {
     setLink(currentUser.link || "");
     setAvatarPreview(
       currentUser.avatarUrl
-        ? `${BACKEND_URL}${currentUser.avatarUrl}`
+        ? `${API_URL}${currentUser.avatarUrl}`
         : "/icon-no-profile.svg"
     );
   }, [currentUser]);
@@ -65,14 +65,12 @@ const EditProfile = () => {
           refreshToken: auth.refreshToken,
         })
       );
-
-      // Обновляем локальный preview для мгновенного отображения
+      
       setAvatarPreview(
         updatedUser.avatarUrl
-          ? `${BACKEND_URL}${updatedUser.avatarUrl}`
+          ? `${API_URL}${updatedUser.avatarUrl}`
           : "/icon-no-profile.svg"
       );
-
       navigate(`/users/${currentUser.username}`);
     } catch (err) {
       console.error("Ошибка при сохранении профиля:", err);
@@ -96,7 +94,7 @@ const EditProfile = () => {
           </label>
 
           <div className={styles.userInfo}>
-            <p className={styles.userFullname}>{fullname || "Your name"}</p>
+            <p className={styles.userFullname}>{`${currentUser.username}`}</p>
             <p className={styles.userBio}>
               {bio || "Tell something about yourself"}
             </p>

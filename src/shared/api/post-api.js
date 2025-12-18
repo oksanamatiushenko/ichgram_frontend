@@ -12,10 +12,21 @@ export const getPostById = async (postId) => {
 
 export const getPostsByUsername = async (username) => {
   const { data } = await instance.get(`/posts/user/${username}`);
-  return data.map(post => ({
+  return data.map((post) => ({
     ...post,
-    imageUrl: `${API_URL}${post.imageUrl}`
+    imageUrl: `${API_URL}${post.imageUrl}`,
   }));
+};
+
+export const getExplorePosts = async () => {
+  const { data } = await instance.get("/posts/explore");
+
+  const normalized = data.map((post) => ({
+    ...post,
+    imageUrl: `${API_URL}${post.imageUrl}`,
+  }));
+
+  return normalized;
 };
 
 export const likePost = async (postId) => {
@@ -46,7 +57,6 @@ export const addCommentToPost = async (postId, text, token) => {
   return res.data;
 };
 
-// Удаление поста
 export const deletePost = async (postId, token) => {
   const res = await instance.delete(`${API_URL}/posts/${postId}`, {
     headers: { Authorization: `Bearer ${token}` },
@@ -54,7 +64,6 @@ export const deletePost = async (postId, token) => {
   return res.data;
 };
 
-// Редактирование поста
 export const editPost = async (postId, caption, token) => {
   const res = await instance.put(
     `${API_URL}/posts/${postId}`,
@@ -64,7 +73,6 @@ export const editPost = async (postId, caption, token) => {
   return res.data;
 };
 
-// Лайк комментария
 export const likeComment = async (postId, commentId, token) => {
   const { data } = await instance.post(
     `${API_URL}/posts/${postId}/comments/${commentId}/like`,
@@ -74,7 +82,6 @@ export const likeComment = async (postId, commentId, token) => {
   return data;
 };
 
-// Снять лайк с комментария
 export const unlikeComment = async (postId, commentId, token) => {
   const { data } = await instance.post(
     `${API_URL}/posts/${postId}/comments/${commentId}/unlike`,

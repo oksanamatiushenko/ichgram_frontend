@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUser } from "../../../redux/auth/authSelectors";
 import { logoutUser } from "../../../redux/auth/authOperations";
+import { selectUser } from "../../../redux/auth/authSelectors";
 import styles from "./SidebarMenu.module.css";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
@@ -29,49 +29,26 @@ const SidebarMenu = ({
     }
   };
 
+  const getImageSrc = (url) => {
+    if (!url) return "/icon-no-profile.svg"; // дефолтный аватар
+    return url.startsWith("http") ? url : `${API_URL}${url}`;
+  };
+
   const menuItems = [
-    {
-      label: "Home",
-      icon: "/sidebar/icon-home.svg",
-      iconFilled: "/sidebar/icon-home-filled.svg",
-    },
-    {
-      label: "Search",
-      icon: "/sidebar/icon-search.svg",
-      iconFilled: "/sidebar/icon-search-filled.svg",
-    },
-    {
-      label: "Explore",
-      icon: "/sidebar/icon-explore.svg",
-      iconFilled: "/sidebar/icon-explore-filled.svg",
-    },
-    {
-      label: "Messages",
-      icon: "/sidebar/icon-messages.svg",
-      iconFilled: "/sidebar/icon-messages-filled.svg",
-    },
-    {
-      label: "Notification",
-      icon: "/sidebar/icon-notification.svg",
-      iconFilled: "/sidebar/icon-notification-filled.svg",
-    },
-    {
-      label: "Create",
-      icon: "/sidebar/icon-createpost.svg",
-      iconFilled: "/sidebar/icon-createpost.svg",
-    },
+    { label: "Home", icon: "/sidebar/icon-home.svg", iconFilled: "/sidebar/icon-home-filled.svg" },
+    { label: "Search", icon: "/sidebar/icon-search.svg", iconFilled: "/sidebar/icon-search-filled.svg" },
+    { label: "Explore", icon: "/sidebar/icon-explore.svg", iconFilled: "/sidebar/icon-explore-filled.svg" },
+    { label: "Messages", icon: "/sidebar/icon-messages.svg", iconFilled: "/sidebar/icon-messages-filled.svg" },
+    { label: "Notification", icon: "/sidebar/icon-notification.svg", iconFilled: "/sidebar/icon-notification-filled.svg" },
+    { label: "Create", icon: "/sidebar/icon-createpost.svg", iconFilled: "/sidebar/icon-createpost.svg" },
     {
       label: "Profile",
-      icon: "/no-profile-pic-icon-11.jpg",
-      iconFilled: "/no-profile-pic-icon-11.jpg",
+      icon: "/icon-no-profile.svg",
+      iconFilled: "/icon-no-profile.svg",
       isAvatar: true,
       path: currentUser ? `/users/${currentUser.username}` : undefined,
     },
-    {
-      label: "Logout",
-      icon: "/sidebar/icon-logout.svg",
-      iconFilled: "/sidebar/icon-logout-filled.svg",
-    },
+    { label: "Logout", icon: "/sidebar/icon-logout.svg", iconFilled: "/sidebar/icon-logout-filled.svg" },
   ];
 
   const handleClick = async (item, e) => {
@@ -113,6 +90,7 @@ const SidebarMenu = ({
       case "Logout":
         await handleLogout();
         break;
+
       default:
         onClosePanels?.();
     }
@@ -127,14 +105,10 @@ const SidebarMenu = ({
       <nav className={styles.nav}>
         {menuItems.map((item) => {
           const isHovered = hoveredItem === item.label;
-          const isActive =
-            activePanel &&
-            activePanel.toLowerCase() === item.label.toLowerCase();
+          const isActive = activePanel?.toLowerCase() === item.label.toLowerCase();
 
           const imgSrc = item.isAvatar
-            ? currentUser?.avatarUrl
-              ? `${API_URL}${currentUser.avatarUrl}`
-              : item.icon
+            ? getImageSrc(currentUser?.avatarUrl) 
             : isActive || isHovered
             ? item.iconFilled
             : item.icon;

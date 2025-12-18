@@ -1,5 +1,5 @@
 .profilePage {
-  padding: 30px;
+  padding: 30px 100px;
   width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
@@ -48,6 +48,7 @@
   font-size: 14px;
   cursor: pointer;
   transition: background-color 0.2s;
+  margin-top: 10px;
 }
 
 .editBtn:hover {

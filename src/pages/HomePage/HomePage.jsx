@@ -22,7 +22,6 @@ export default function HomePage() {
         setLoading(false);
       }
     };
-
     fetchPosts();
   }, []);
 
@@ -46,4 +45,3 @@ export default function HomePage() {
     </div>
   );
 }
-
