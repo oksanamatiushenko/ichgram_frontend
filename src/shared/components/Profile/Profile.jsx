@@ -126,7 +126,7 @@ const Profile = () => {
 
           <div className={styles.stats}>
             <div className={styles.userInfo}>
-              <p className={styles.boldNumber}>{user.posts?.length || 0}</p>
+              <p className={styles.boldNumber}>{posts.length}</p>
               <p>posts</p>
             </div>
 

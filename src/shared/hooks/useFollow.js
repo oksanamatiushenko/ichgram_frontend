@@ -1,4 +1,3 @@
-// useFollow.js
 import { useState, useEffect } from "react";
 import { followUser, unfollowUser } from "../api/profile-api";
 
@@ -9,9 +8,12 @@ export const useFollow = (user, setUser) => {
   const currentUserId = localStorage.getItem("userId");
 
   useEffect(() => {
-    if (!user || !currentUserId) return;
-    setIsFollowing(user.followers?.some((f) => f.toString() === currentUserId));
-  }, [user, currentUserId]);
+  if (!user || !currentUserId) return;
+
+  setIsFollowing(
+    user.followers?.map(String).includes(String(currentUserId))
+  );
+}, [user, currentUserId]);
 
   const handleFollowToggle = async () => {
     if (!user) return;
