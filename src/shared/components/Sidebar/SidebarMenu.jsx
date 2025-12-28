@@ -30,7 +30,7 @@ const SidebarMenu = ({
   };
 
   const getImageSrc = (url) => {
-    if (!url) return "/icon-no-profile.svg"; // дефолтный аватар
+    if (!url) return "/icon-no-profile.svg";
     return url.startsWith("http") ? url : `${API_URL}${url}`;
   };
 

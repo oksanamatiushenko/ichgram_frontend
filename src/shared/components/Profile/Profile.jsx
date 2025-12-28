@@ -13,10 +13,7 @@ import SpinnerTextLoader from "../SpinnerTextLoader/SpinnerTextLoader";
 
 import styles from "./Profile.module.css";
 
-const API_URL = import.meta.env.VITE_API_URL;
-
 const Profile = () => {
-  
   const navigate = useNavigate();
   const { username } = useParams();
   const currentUser = useSelector(selectUser);
@@ -32,7 +29,6 @@ const Profile = () => {
   );
 
   const isOwnProfile = currentUser?.username === username;
-  
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -86,14 +82,7 @@ const Profile = () => {
   return (
     <div className={styles.profilePage}>
       <div className={styles.profileHeader}>
-        <GradientAvatar
-          src={
-            user.avatarUrl
-              ? `${API_URL}${user.avatarUrl}`
-              : "/icon-no-profile.svg"
-          }
-          size={168}
-        />
+        <GradientAvatar src={user.avatarUrl} size={168} />
 
         <div className={styles.profileInfo}>
           <div className={styles.topRow}>

@@ -15,64 +15,49 @@ import { useFollow } from "../../hooks/useFollow";
 import { useLikePost } from "../../hooks/useLikePost";
 import { useLikeComment } from "../../hooks/useLikeComment";
 
-
 const getDateLabel = (createdAt) => {
   const date = new Date(createdAt);
-
   if (isToday(date)) return "Today";
   if (isYesterday(date)) return "Yesterday";
-
   const daysAgo = differenceInDays(new Date(), date);
   return `${daysAgo} ${daysAgo === 1 ? "Day" : "Days"}`;
 };
 
 const SinglePost = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [post, setPost] = useState(null);
-  const [author, setAuthor] = useState(null);
+  const [author, setAuthor] = useState({ _id: null, username: "", avatarUrl: "", followers: [] });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [showActions, setShowActions] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
   const [commentText, setCommentText] = useState("");
 
-  const currentUser = useSelector((state) => state.auth.user);
+  const currentUser = useSelector((state) => state.auth.user)
   const token = useSelector((state) => state.auth.token);
 
   const textareaRef = useRef(null);
 
-  const { isFollowing, handleFollow, handleUnfollow } = useFollow(
-    author,
-    setAuthor
-  );
-
-  const {
-    isLiked,
-    handleLike,
-    handleUnlike,
-    isProcessing: isPostProcessing,
-  } = useLikePost(post, setPost);
-
-  const {
-    isCommentLiked,
-    handleLikeComment,
-    handleUnlikeComment,
-    isProcessing: isCommentProcessing,
-  } = useLikeComment(post, setPost);
+  const { isFollowing, handleFollow, handleUnfollow } = useFollow(author, setAuthor);
+  const { isLiked, handleLike, handleUnlike, isProcessing: isPostProcessing } = useLikePost(post, setPost);
+  const { isCommentLiked, handleLikeComment, handleUnlikeComment, isProcessing: isCommentProcessing } = useLikeComment(post, setPost);
 
   /* ===== fetch post ===== */
   const fetchPost = useCallback(async () => {
     if (!id) return;
-
     setLoading(true);
     try {
       const data = await getPostById(id);
+      const safeAuthor = {
+        _id: data.author?._id || null,
+        username: data.author?.username || "",
+        avatarUrl: data.author?.avatarUrl || "/icon-no-profile.svg",
+        followers: data.author?.followers || [],
+      };
       setPost(data);
-      setAuthor(data.author);
+      setAuthor(safeAuthor);
       setError(null);
     } catch (err) {
       console.error("Ошибка при получении поста:", err);
@@ -85,51 +70,29 @@ const SinglePost = () => {
   useEffect(() => {
     document.body.style.overflow = "hidden";
     fetchPost();
-
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [fetchPost]);
 
   /* ===== emoji ===== */
   const handleEmojiInsert = (emoji) => {
     const textarea = textareaRef.current;
     if (!textarea) return;
-
     const start = textarea.selectionStart;
     const end = textarea.selectionEnd;
-
-    const updated =
-      commentText.slice(0, start) +
-      emoji +
-      commentText.slice(end);
-
+    const updated = commentText.slice(0, start) + emoji + commentText.slice(end);
     setCommentText(updated);
-
     requestAnimationFrame(() => {
       textarea.focus();
-      textarea.selectionStart = textarea.selectionEnd =
-        start + emoji.length;
+      textarea.selectionStart = textarea.selectionEnd = start + emoji.length;
     });
   };
 
   /* ===== add comment ===== */
   const handleAddComment = async () => {
     if (!commentText.trim() || !currentUser || !post || !token) return;
-
     try {
-      const newComment = await addCommentToPost(
-        post._id,
-        commentText.trim(),
-        token
-      );
-
-      setPost((prev) =>
-        prev
-          ? { ...prev, comments: [...(prev.comments || []), newComment] }
-          : prev
-      );
-
+      const newComment = await addCommentToPost(post._id, commentText.trim(), token);
+      setPost((prev) => prev ? { ...prev, comments: [...(prev.comments || []), newComment] } : prev);
       setCommentText("");
     } catch (err) {
       console.error("Ошибка добавления комментария", err);
@@ -138,11 +101,10 @@ const SinglePost = () => {
 
   const onClose = () => navigate(-1);
 
-  /* ===== states ===== */
   if (loading) {
     return (
       <div className={styles.overlay}>
-        <div className={styles.modal}>Загрузка...</div>
+        <div className={styles.modal}>Loading...</div>
       </div>
     );
   }
@@ -150,26 +112,18 @@ const SinglePost = () => {
   if (error || !post) {
     return (
       <div className={styles.overlay} onClick={onClose}>
-        <div
-          className={styles.modal}
-          onClick={(e) => e.stopPropagation()}
-        >
+        <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
           <p>{error || "Пост не найден"}</p>
-          <button className={styles.closeBtn} onClick={onClose}>
-            Закрыть
-          </button>
+          <button className={styles.closeBtn} onClick={onClose}>Закрыть</button>
         </div>
       </div>
     );
   }
-
   /* ===== render ===== */
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div
-        className={styles.modal}
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+
         {/* IMAGE */}
         <div className={styles.photoSection}>
           <img src={post.imageUrl} alt="Post" className={styles.photo} />
@@ -178,38 +132,28 @@ const SinglePost = () => {
         {/* INFO */}
         <div className={styles.infoSection}>
           <div className={styles.scrollableContent}>
+
+            {/* AUTHOR INFO */}
             {author && (
               <div className={styles.authorInfo}>
-                <Link to={`/users/${author.username}`}>
-                  <GradientAvatar
-                    src={author.avatarUrl || "/no-profile-pic-icon-11.jpg"}
-                    size={28}
-                  />
+                <Link to={`/users/${author.username}`} className={styles.authorLink}>
+                  <GradientAvatar src={author.avatarUrl} size={28} />
                 </Link>
-
-                <Link to={`/users/${author.username}`}>
+                <Link to={`/users/${author.username}`} className={styles.authorLink}>
                   <strong>{author.username}</strong>
                 </Link>
 
                 {currentUser && currentUser._id !== author._id && (
                   <>
                     <span>•</span>
-                    <button
-                      className={styles.followBtn}
-                      onClick={
-                        isFollowing ? handleUnfollow : handleFollow
-                      }
-                    >
-                      {isFollowing ? "Отписаться" : "Подписаться"}
+                    <button className={styles.followBtn} onClick={isFollowing ? handleUnfollow : handleFollow}>
+                      {isFollowing ? "Unfollow" : "Follow"}
                     </button>
                   </>
                 )}
 
                 {currentUser && currentUser._id === author._id && (
-                  <button
-                    onClick={() => setShowActions(true)}
-                    className={styles.moreBtn}
-                  >
+                  <button onClick={() => setShowActions(true)} className={styles.moreBtn}>
                     <img src="/more-actions-btn.svg" alt="More" />
                   </button>
                 )}
@@ -218,15 +162,13 @@ const SinglePost = () => {
 
             {/* CAPTION */}
             {author && (
-              <div className={styles.authorInfoShort}>
-                <GradientAvatar
-                  src={author.avatarUrl || "/no-profile-pic-icon-11.jpg"}
-                  size={28}
-                />
-                <p>
-                  <strong>{author.username}</strong>{" "}
-                  {post.caption || "Без описания"}
-                </p>
+              <div className={styles.postBlock}>
+                <div className={styles.authorInfoShort}>
+                  <GradientAvatar src={author.avatarUrl} size={28} />
+                  <span className={styles.userPost}>
+                    <p><strong>{author.username}</strong> {post.caption || "Без описания"}</p>
+                  </span>
+                </div>
               </div>
             )}
 
@@ -234,61 +176,35 @@ const SinglePost = () => {
             <PostComments
               comments={post.comments || []}
               currentUser={currentUser}
-              likedCommentsIds={
-                post.comments
-                  ?.filter((c) =>
-                    isCommentLiked(c, currentUser?._id)
-                  )
-                  .map((c) => c._id) || []
-              }
+              likedCommentsIds={post.comments?.filter((c) => isCommentLiked(c, currentUser?._id)).map((c) => c._id) || []}
               onLikeComment={handleLikeComment}
               onUnlikeComment={handleUnlikeComment}
             />
+
           </div>
 
-          {/* BOTTOM */}
+          {/* BOTTOM BAR */}
           <div className={styles.bottomBar}>
-            <div className={styles.actions}>
-              <img
-                src={isLiked ? "/like-filled.svg" : "/like-con.svg"}
-                alt="Like"
-                className={styles.icon}
-                onClick={
-                  isPostProcessing
-                    ? undefined
-                    : isLiked
-                    ? handleUnlike
-                    : handleLike
-                }
-              />
+            <div className={styles.barLine}>
+              <div className={styles.actions}>
+                <img
+                  src={isLiked ? "/like-filled.svg" : "/like-icon.svg"}
+                  alt="Like"
+                  className={styles.icon}
+                  onClick={isPostProcessing ? undefined : isLiked ? handleUnlike : handleLike}
+                  style={{ cursor: isPostProcessing ? "not-allowed" : "pointer" }}
+                />
+
+                <img src="/comment-icon.svg" alt="Comment" className={styles.icon} />
+              </div>
+              <p className={styles.likes}>{post.likes?.length || 0} лайков</p>
+              <p className={styles.time}>{getDateLabel(post.createdAt)}</p>
             </div>
 
-            <p className={styles.likes}>{post.likes?.length || 0} лайков</p>
-            <p className={styles.time}>{getDateLabel(post.createdAt)}</p>
-
-            <form
-              className={styles.commentForm}
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleAddComment();
-              }}
-            >
+            <form className={styles.commentForm} onSubmit={(e) => { e.preventDefault(); handleAddComment(); }}>
               <EmojiPickerButton onSelect={handleEmojiInsert} />
-
-              <textarea
-                ref={textareaRef}
-                placeholder="Add comment"
-                value={commentText}
-                onChange={(e) => setCommentText(e.target.value)}
-                disabled={isCommentProcessing}
-              />
-
-              <button
-                type="submit"
-                disabled={!commentText.trim() || isCommentProcessing}
-              >
-                Send
-              </button>
+              <textarea ref={textareaRef} placeholder="Add comment" value={commentText} onChange={(e) => setCommentText(e.target.value)} disabled={isCommentProcessing} />
+              <button type="submit" disabled={!commentText.trim() || isCommentProcessing}>Send</button>
             </form>
           </div>
         </div>
@@ -298,14 +214,8 @@ const SinglePost = () => {
           <PostActionsModal
             postId={post._id}
             onClose={() => setShowActions(false)}
-            onEditClick={() => {
-              setShowActions(false);
-              setIsEditing(true);
-            }}
-            onDeleted={async () => {
-              setShowActions(false);
-              navigate(`/users/${author?.username}`);
-            }}
+            onEditClick={() => { setShowActions(false); setIsEditing(true); }}
+            onDeleted={async () => { setShowActions(false); navigate(`/users/${author?.username}`); }}
           />
         )}
 
@@ -315,15 +225,14 @@ const SinglePost = () => {
             initialCaption={post.caption || ""}
             previewUrl={post.imageUrl}
             onClose={() => setIsEditing(false)}
-            onSaved={async () => {
-              await fetchPost();
-              setIsEditing(false);
-            }}
+            onSaved={async () => { await fetchPost(); setIsEditing(false); }}
           />
         )}
+
       </div>
     </div>
   );
 };
 
-export default SinglePost;    
+export default SinglePost;
+

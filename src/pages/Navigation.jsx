@@ -20,7 +20,7 @@ import TermsPage from "./TermsPrivacyCookies/TermsPage/TermsPage";
 import MessagesPage from "./MessagesPage/MessagesPage";
 
 import CreatePostModal from "../shared/components/CreatePostModal/CreatePostModal";
-import SinglePost from "../shared/components/SinglePost/SinglePost";
+import SinglePost from "../shared/components/SinglePost/SInglePost";
 
 
 const Navigation = () => {

@@ -75,7 +75,7 @@ const EditPostModal = ({ postId, initialCaption, previewUrl, onClose, onSaved })
       <div onClick={(e) => e.stopPropagation()} className={styles.modalWrapper}>
         <div className={styles.modalHeader}>
           <button className={styles.closeBtn} onClick={onClose} aria-label="Закрыть модалку">
-            <img src="/x-lg.svg" alt="Close" />
+            <img src="/btn-clear.svg" alt="Close" />
           </button>
 
           <h3 className={styles.modalTitle}>Edit post</h3>
