@@ -57,11 +57,9 @@ export const addCommentToPost = async (postId, text, token) => {
   return res.data;
 };
 
-export const deletePost = async (postId, token) => {
-  const res = await instance.delete(`${API_URL}/posts/${postId}`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-  return res.data;
+export const deletePost = async (postId) => {
+  const { data } = await instance.delete(`/posts/${postId}`);
+  return data;
 };
 
 export const editPost = async (postId, caption, token) => {

@@ -21,9 +21,9 @@ const postsSlice = createSlice({
       state.shouldReloadPosts = action.payload;
     },
   },
+  
   extraReducers: (builder) => {
     builder
-      // fetchPostsByUsername
       .addCase(fetchPostsByUsername.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -37,7 +37,6 @@ const postsSlice = createSlice({
         state.error = action.payload;
       })
 
-      // addNewPost
       .addCase(addNewPost.pending, (state) => {
         state.loading = true;
         state.error = null;

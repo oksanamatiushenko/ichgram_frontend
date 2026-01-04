@@ -72,7 +72,7 @@ function App() {
           <NotificationsPanel
             isOpen={openPanel === "notifications"}
             onClose={() => setOpenPanel(null)}
-            token={user?.accessToken}
+            // token={user?.accessToken}
           />
 
           <Search

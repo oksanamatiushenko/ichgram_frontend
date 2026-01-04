@@ -4,16 +4,24 @@ import { deletePost } from "../../../api/post-api";
 import { setShouldReloadPosts } from "../../../../redux/posts/posts-slice";
 
 const PostActionsModal = ({ postId, onClose, onEditClick, onDeleted }) => {
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector((state) => state.auth.accessToken);
   const dispatch = useDispatch();
 
   const handleDelete = async () => {
     try {
-      if (!token) throw new Error("No token");
+      if (!token) {
+        console.error("Нет accessToken");
+        return;
+      }
 
-      await deletePost(postId, token);
+      await deletePost(postId);
       dispatch(setShouldReloadPosts(true));
-      if (onDeleted) await onDeleted();
+
+      if (onDeleted) {
+        await onDeleted();
+      }
+
+      onClose();
     } catch (error) {
       console.error("Ошибка удаления:", error);
     }
